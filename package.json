@@ -14,9 +14,15 @@
 	},
 
 	"dependencies": {
+		"async": "2.*",
+		"node-cron": "1.1.*",
+
 		"tesserarius": "0.0.*",
 		"passwd-linux": "1.*",
+		"node-arp": "*",
 
-		"express": "4.*"
+		"express": "4.*",
+		"body-parser": "*",
+		"hogan-express": "*"
 	}
 }
