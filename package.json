@@ -1,0 +1,22 @@
+{
+	"name": "chillinode",
+	"version": "0.0.1",
+	"description": "A chill Node.js-based captive portal for Linux",
+	"keywords": ["linux","captive portal","openwrt","router","wifi security"],
+	
+	"author": {
+		"name": "J. Kerber",
+		"email": "dev@kerberjg.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kerberjg/chillinode.git"
+	},
+
+	"dependencies": {
+		"tesserarius": "0.0.*",
+		"passwd-linux": "1.*",
+
+		"express": "4.*"
+	}
+}
