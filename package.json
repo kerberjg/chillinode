@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"description": "A chill Node.js-based captive portal for Linux",
 	"keywords": ["linux","captive portal","openwrt","router","wifi security"],
-	
+	"COMMENT_os": ["linux"],
+
 	"author": {
 		"name": "J. Kerber",
 		"email": "dev@kerberjg.com"
