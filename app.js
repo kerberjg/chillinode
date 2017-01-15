@@ -9,8 +9,9 @@ const bodyParser = require('body-parser');
 
 // Express setup
 const app = express();
-app.use(express.static('../res/static'));
 //app.enable('trust proxy');
+app.use(express.static('./res/static/'));
+app.use(express.static('./node_modules/bootstrap/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
