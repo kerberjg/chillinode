@@ -1,5 +1,6 @@
-# Chillinode
+Chillinode
 =============
+
 Chillinode is a very basic Node.js-based captive portal for Linux systems, built with simplicity in mind.
 
 **Status**: Currently very crude
