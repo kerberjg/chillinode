@@ -1,7 +1,7 @@
 "use strict"
 // Config
-global.config = require('config.json');
-const port = process.ENV.PORT || global.config.port || 3000;
+global.config = require('./config.json');
+const port = process.env.PORT || global.config.port || 3000;
 
 // Express dependencies
 const express = require('express');
@@ -21,8 +21,8 @@ app.engine('html', require('hogan-express'));
 const arp = require('node-arp');
 
 // Internal modules
-const strategy = require('src/strategies/default');
-const firewall = require('src/firewall');
+const strategy = require('./src/strategies/default');
+const firewall = require('./src/firewall');
 
 
 /*

@@ -2,6 +2,8 @@
 const os = require('os');
 const iptables = require('tesserarius')();
 const cron = require('node-cron');
+const async = require('async');
+const child_process = require('child_process');
 
 // Parses and executes CLI commands
 function execCmd(str, cb) {
