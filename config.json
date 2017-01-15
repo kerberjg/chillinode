@@ -1,0 +1,7 @@
+{
+	"port": 3000,
+	"lanIf": "br-lan",
+	"wanIf": "br-wan",
+	"routerIp": "192.168.1.1",
+	"whitelist": []
+}
