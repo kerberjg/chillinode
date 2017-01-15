@@ -10,11 +10,12 @@ const bodyParser = require('body-parser');
 // Express setup
 const app = express();
 //app.enable('trust proxy');
-app.use(express.static('./res/static/'));
-app.use(express.static('./node_modules/bootstrap/'));
+app.use(express.static(__dirname + '/res/static/'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('views', './src/views');
 app.set('view engine', 'html');
 app.engine('html', require('hogan-express'));
 
@@ -32,7 +33,7 @@ const firewall = require('./src/firewall');
 
 // Login page
 app.get('/', (req, res) => {
-	res.render('login', { unauthorized: (req.query.error == 403) });
+	res.render('index', { unauthorized: (req.query.error == 403) });
 });
 
 // Login action
@@ -98,11 +99,11 @@ app.post('/', (req, res) => {
 
 app.listen(port, () => {
 	console.log('Setting firewall rules...');
-	firewall.init((err) => {
-		if(err) {
-			console.error("Error initializing the firewall:\n" + err.stack);
-			process.exit(-1);
-		} else
+	//firewall.init((err) => {
+	//	if(err) {
+	//		console.error("Error initializing the firewall:\n" + err.stack);
+	//		process.exit(-1);
+	//	} else
 			console.log(`Chillinode is now listening on port ${port}`);
-	});
+	//});
 });
