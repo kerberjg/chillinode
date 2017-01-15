@@ -37,24 +37,63 @@ app.get('/', (req, res) => {
 
 // Login action
 app.post('/', (req, res) => {
-	let user = strategy.checkCredentials(req.body);
+	async.waterfall([
+		// Auth user
+		(cb) => {
+			strategy.authenticate(req.body, (err, user) => {
+				if(err) {
+					cb(err);
+				} else if(user && user.authenticated)
+					cb(null, user);
+				else {
+					cb({ status: 403 });
+				}
+			})
+		},
+		// Get MAC address
+		(user, cb) => {
+			user.ip = req.ip;
 
-	if(user)
-		arp.getMAC(req.ip, (err, mac) => {
-			if(err)
+			arp.getMAC(req.ip, (err, mac) => {
+				if(err) {
+					console.error("There was an error while getting user's MAC address:\n" + err.stack);
+					cb(err);
+				} else if(mac) {
+					user.mac = mac;
+					cb(null, user);
+				} else
+					cb(new Error("A MAC address for user's IP wasn't found in system's ARP table"));
+			});
+		},
+		// Add user to firewall rules
+		(user, cb) => {
+			firewall.authorize(mac, (err) => {
+				if(err) {
+					console.error("There was an error while adding user's MAC address to authorized addresses:\n" + err.stack);
+					cb(err);
+				} else
+					cb(null, user);
+			});
+		}
+	], (err, data) => {
+		if(err) {
+			if(err instanceof Error)
 				res.json(err).sendStatus(500);
-			else if(mac)
-				firewall.authorize(mac, (err) => {
-					if(err)
-						res.json(err).sendStatus(500);
-					else
-						res.redirect(req.body.redirect);
-				});
-			else
-				res.sendStatus(404);
-		});
-	else
-		res.redirect('/?error=403');
+			else {
+				res.json(err);
+				switch(err.status) {
+					case 403:
+						return res.redirect('/?error=403');
+					default:
+						res.status(500);
+						break;
+				}
+
+				res.end();
+			}
+		} else
+			res.redirect(req.body.redirect);
+	});
 });
 
 app.listen(port, () => {
