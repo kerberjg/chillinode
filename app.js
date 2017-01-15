@@ -57,8 +57,12 @@ app.post('/', (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log('Resetting firewall rules...');
-	firewall.init();
-
-	console.log(`Chillinode is now listening on port ${port}`)
+	console.log('Setting firewall rules...');
+	firewall.init((err) => {
+		if(err) {
+			console.error("Error initializing the firewall:\n" + err.stack);
+			process.exit(-1);
+		} else
+			console.log(`Chillinode is now listening on port ${port}`);
+	});
 });
