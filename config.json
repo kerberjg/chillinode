@@ -1,7 +1,7 @@
 {
 	"port": 3000,
-	"lanIf": "br-lan",
-	"wanIf": "br-wan",
-	"routerIp": "192.168.1.1",
+	"lanIf": "eth1",
+	"wanIf": "eth0",
+	"routerIp": "192.168.215.1",
 	"whitelist": []
 }
