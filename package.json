@@ -22,7 +22,7 @@
 		"passwd-linux": "1.*",
 		"node-arp": "*",
 
-		"express": "4.*",
+		"express": "3.*",
 		"bootstrap": "3.*",
 		"body-parser": "*",
 		"hogan-express": "*"
